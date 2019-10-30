@@ -1,0 +1,98 @@
+	/** Map css **/
+  /*.st2{font-size:12px;fill: #000000;font-weight: 700;}
+  .st0,.st4,.st3, .seat_300_map .st2{fill:#56AB2F;;stroke:#FFFFFF;stroke-width:0.5;stroke-miterlimit:10;}    
+  .red path, .red, g path, path, a path, polyline, a polyline{
+    -webkit-transition: all 5s ease;
+    -moz-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+    cursor: pointer;
+  }
+  .seat-banner .st3{
+      fill: #000;
+      stroke-width: 0;
+  }
+  .e_s_list{
+    fill: #000000;
+  }
+  .e_s_list2{
+    fill: red;
+  }
+  g:hover path,path:hover, a:hover path, polyline:hover, a:hover polyline{
+    fill: #ff5722;
+  }
+  a{
+  	font-size: 8px;
+  }
+  a:hover{
+  	text-decoration: none;
+  }
+  @media only screen and (max-width: 823px){
+    .st2{font-size:20px;}
+  }
+
+  .seat-detail .info{
+    font-size: 16px;
+    width: 100%;
+    display: block;
+  }
+
+  .district-details .info-list{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .district-details .info-list p{
+    margin: 0;
+  }*/
+  /** Map css **/
+  .st2{font-size:20px;fill: #000;font-weight: 600;}
+  .st0,.st4,.st3, .seat_300_map .st2{fill:#FFD740;;stroke:#FFFFFF;stroke-width:0.5;stroke-miterlimit:10;}    
+  .red path, .red, g path, path, a path, polyline, a polyline{
+    -webkit-transition: all 5s ease;
+    -moz-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+    cursor: pointer;
+  }
+  .seat-banner .st3{
+      fill: #FFFFFF;
+      stroke-width: 0;
+  }
+  .e_s_list{
+    fill: #FFFFFF;
+  }
+  .e_s_list2{
+    fill: red;
+  }
+  g:hover path,path:hover, a:hover path, polyline:hover, a:hover polyline{
+    fill: #ff5722;
+  }
+  /*a{
+    font-size: 8px;
+  }
+  a:hover{
+    text-decoration: none;
+  }*/
+  @media only screen and (max-width: 823px){
+    .st2{font-size:20px;}
+  }
+
+  .seat-detail .info{
+    font-size: 16px;
+    width: 100%;
+    display: block;
+  }
+
+  .district-details .info-list{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .district-details .info-list p{
+    margin: 0;
+  }
+  
+/** Map css **/

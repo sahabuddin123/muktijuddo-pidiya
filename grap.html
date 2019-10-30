@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+
+<html lang="bn">    
+    <title>grap</title>
+   <link rel="stylesheet" type="text/css" href="asset/css/main.css">
+	<link rel="stylesheet" type="text/css" href="asset/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="asset/css/font-awesome.min.css">
+	<!-- MaP Css -->
+	<link rel="stylesheet" type="text/css" href="asset/css/map.css">
+
+	<!-- Owl Carsule Css -->
+	<link rel="stylesheet" type="text/css" href="asset/css/owl.carousel.min.css">
+	<link rel="stylesheet" type="text/css" href="asset/css/owl.theme.default.min.css">
+
+    <!-- jQuery-2.2.4 js -->
+    <script type="text/javascript" async="" src="asset/js/analytics.js.download"></script>
+    <script src="asset/js/jquery-2.2.4.min.js.download"></script>
+
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-6 col-md-6 col-lg-6 col-sm-4">
+				<canvas width="210" height="210" id="chart-area" class="chartjs-render-monitor"></canvas> 
+			</div>
+			<!-- <div class="col-6 col-md-3 col-lg-3 col-sm-4">
+				<canvas width="210" height="210" id="chart-area-09" class="chartjs-render-monitor"></canvas>
+			</div>
+			<div class="col-6 col-md-3 col-lg-3 col-sm-4">
+				<canvas width="210" height="210" id="chart-area-08" class="chartjs-render-monitor"></canvas>
+			</div>
+			<div class="col-6 col-md-3 col-lg-3 col-sm-4">
+				<canvas width="210" height="210" id="chart-area-07" class="chartjs-render-monitor"></canvas>
+			</div>
+			<div class="col-6 col-md-3 col-lg-3 col-sm-4">
+				<canvas width="210" height="210" id="chart-area" class="chartjs-render-monitor"></canvas>
+			</div> -->
+		</div>
+	</div>
+
+
+
+
+
+
+<script src="asset/js/Chart.bundle.js.download"></script>
+<script src="asset/js/utils.js.download"></script>
+<script src="asset/js/chartjs-plugin-labels.js.download"></script>
+
+<script>
+    window.onload = function() {
+
+        Chart.defaults.global.defaultFontFamily = "Kiron";
+
+        Chart.pluginService.register({
+            beforeDraw: function (chart) {
+                if (chart.config.options.elements.center) {
+                    //Get ctx from string
+                    var ctx = chart.chart.ctx;
+
+                    //Get options from the center object in options
+                    var centerConfig = chart.config.options.elements.center;
+                    var fontStyle = centerConfig.fontStyle;
+                    var txt = centerConfig.text;
+                    var color = centerConfig.color || '#000';
+                    var sidePadding = centerConfig.sidePadding || 20;
+                    var sidePaddingCalculated = (sidePadding/100) * (chart.innerRadius * 2)
+                    //Start with a base font of 30px
+                    ctx.font = "100px " + fontStyle;
+
+                    //Get the width of the string and also the width of the element minus 10 to give it 5px side padding
+                    var stringWidth = ctx.measureText(txt).width;
+                    var elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
+
+                    // Find out how much the font can grow in width.
+                    var widthRatio = elementWidth / stringWidth;
+                    var newFontSize = Math.floor(30 * widthRatio);
+                    var elementHeight = (chart.innerRadius * 2);
+
+                    // Pick a new font size so it will not be larger than the height of label.
+                    var fontSizeToUse = Math.min(newFontSize, elementHeight);
+
+                    //Set font settings to draw it correctly.
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    var centerX = ((chart.chartArea.left + chart.chartArea.right) / 2);
+                    var centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
+                    ctx.font = fontSizeToUse+"px " + fontStyle;
+                    ctx.fillStyle = color;
+
+                    //Draw text in center
+                    ctx.fillText(txt, centerX, centerY);
+                }
+            }
+        });
+
+        var ctx = document.getElementById('chart-area').getContext('2d');
+        window.myDoughnut = new Chart(ctx, config);
+
+        // var ctx_07 = document.getElementById('chart-area-07').getContext('2d');
+        // window.myDoughnut = new Chart(ctx_07, config_07);
+
+        // var ctx_08 = document.getElementById('chart-area-08').getContext('2d');
+        // window.myDoughnut = new Chart(ctx_08, config_08);
+
+        // var ctx_09 = document.getElementById('chart-area-09').getContext('2d');
+        // window.myDoughnut = new Chart(ctx_09, config_09);
+
+        // var ctx_10 = document.getElementById('chart-area-10').getContext('2d');
+        // window.myDoughnut = new Chart(ctx_10, config_10);
+    };
+</script>
+
+<script>
+
+
+
+    var config = {
+        type: 'doughnut',
+
+        data: {
+            datasets: [{
+                data: [
+                    '04.00',
+                    '40.50',
+                    '35.50',
+                    '15.50',
+                    '05.50',
+                ],
+                backgroundColor: [
+                    "#A5D6A7",
+                    "#FF8A80",
+                    "#B388FF",
+                    '#999999',
+                    "#FFD180"
+                ],
+                label: 'Dataset 1'
+
+            }],
+            labels: [
+                'খেতাব প্রাপ্ত মুক্তিযোদ্ধা',
+                'পুরুষ মুক্তিযোদ্ধা',
+                'নারি মুক্তিযোদ্ধা',
+                'ভারতীয় যোদ্ধা',
+                'অন্যান্য'
+            ]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: false,
+            },
+            title: {
+                display: true,
+                text: ''
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            },
+
+            tooltips: {
+                callbacks: {
+                    title: function(tooltipItem, data) {
+                        return data['labels'][tooltipItem[0]['index']].getDigitBanglaFromEnglish();
+                    },
+                    label: function(tooltipItem, data) {
+                        var tem = data['datasets'][0]['data'][tooltipItem['index']];
+                        return tem.getDigitBanglaFromEnglish() + "%";
+                    }
+                }
+            },
+            plugins: {
+                labels: {
+                    render: function (args) {
+                        // { label: 'Label', value: 123, percentage: 50, index: 0, dataset: {...} }
+                        return args.value.getDigitBanglaFromEnglish() + '%';
+                    },
+                    fontColor: '#000',
+                    position: 'outside',
+                    precision: 2
+                }
+            },
+            elements: {
+                center: {
+                    text: '৫ম',
+                    fontStyle: 'Kiron',
+                    color: '#80bb4f', // Default is #000000
+                    sidePadding: 10, // Defualt is 20 (as a percentage),
+                }
+            }
+        }
+    };
+
+
+
+    // var config_07 = {
+    //     type: 'doughnut',
+    //     data: {
+    //         datasets: [{
+    //             data: [
+    //                 '37.44',
+    //                 '16.40',
+    //                 '33.60',
+    //                 '8.16',
+    //                 '4.4',
+    //             ],
+    //             backgroundColor: [
+    //                 "#A5D6A7",
+    //                 "#FF8A80",
+    //                 "#B388FF",
+    //                 '#999999',
+    //                 "#FFD180"
+    //             ],
+    //             label: 'Dataset 1'
+    //         }],
+    //         labels: [
+    //             'আ. লীগ',
+    //             'জাতীয় পার্টি',
+    //             'বিএনপি',
+    //             'জামায়াতে ইসলামী',
+    //             'অন্যান্য'
+    //         ]
+    //     },
+    //     options: {
+    //         responsive: true,
+    //         legend: {
+    //             display: false,
+    //         },
+    //         title: {
+    //             display: true,
+    //             text: ''
+    //         },
+    //         animation: {
+    //             animateScale: true,
+    //             animateRotate: true
+    //         },
+    //         tooltips: {
+    //             callbacks: {
+    //                 title: function(tooltipItem, data) {
+    //                     return data['labels'][tooltipItem[0]['index']].getDigitBanglaFromEnglish();
+    //                 },
+    //                 label: function(tooltipItem, data) {
+    //                     var tem = data['datasets'][0]['data'][tooltipItem['index']];
+    //                     return tem.getDigitBanglaFromEnglish() + "%";
+    //                 }
+    //             }
+    //         },
+    //         plugins: {
+    //             labels: {
+    //                 render: function (args) {
+    //                     // { label: 'Label', value: 123, percentage: 50, index: 0, dataset: {...} }
+    //                     return args.value.getDigitBanglaFromEnglish() + '%';
+    //                 },
+    //                 fontColor: '#000',
+    //                 position: 'outside',
+    //                 precision: 2
+    //             }
+    //         },
+    //         elements: {
+    //             center: {
+    //                 text: '৭ম',
+    //                 fontStyle: 'Kiron',
+    //                 color: '#0e7b82', // Default is #000000
+    //                 sidePadding: 10, // Defualt is 20 (as a percentage),
+    //             }
+    //         }
+    //     }
+    // };
+
+    // var config_08 = {
+    //     type: 'doughnut',
+    //     data: {
+    //         datasets: [{
+    //             data: [
+    //                 '40.13',
+    //                 '1.12',
+    //                 '40.97',
+    //                 '4.28',
+    //                 '13.5',
+    //             ],
+    //             backgroundColor: [
+    //                 "#A5D6A7",
+    //                 "#FF8A80",
+    //                 "#B388FF",
+    //                 '#999999',
+    //                 "#FFD180"
+    //             ],
+    //             label: 'Dataset 1'
+    //         }],
+    //         labels: [
+    //             'আ. লীগ',
+    //             'জাতীয় পার্টি',
+    //             'বিএনপি',
+    //             'জামায়াতে ইসলামী',
+    //             'অন্যান্য'
+    //         ]
+    //     },
+    //     options: {
+    //         responsive: true,
+    //         legend: {
+    //             display: false,
+    //         },
+    //         title: {
+    //             display: true,
+    //             text: ''
+    //         },
+    //         animation: {
+    //             animateScale: true,
+    //             animateRotate: true
+    //         },
+    //         tooltips: {
+    //             callbacks: {
+    //                 title: function(tooltipItem, data) {
+    //                     return data['labels'][tooltipItem[0]['index']].getDigitBanglaFromEnglish();
+    //                 },
+    //                 label: function(tooltipItem, data) {
+    //                     var tem = data['datasets'][0]['data'][tooltipItem['index']];
+    //                     return tem.getDigitBanglaFromEnglish() + "%";
+    //                 }
+    //             }
+    //         },
+    //         plugins: {
+    //             labels: {
+    //                 render: function (args) {
+    //                     // { label: 'Label', value: 123, percentage: 50, index: 0, dataset: {...} }
+    //                     return args.value.getDigitBanglaFromEnglish() + '%';
+    //                 },
+    //                 fontColor: '#000',
+    //                 position: 'outside',
+    //                 precision: 2
+    //             }
+    //         },
+    //         elements: {
+    //             center: {
+    //                 text: '৮ম',
+    //                 fontStyle: 'Kiron',
+    //                 color: '#1380c5', // Default is #000000
+    //                 sidePadding: 10, // Defualt is 20 (as a percentage),
+    //             }
+    //         }
+    //     }
+    // };
+
+    // var config_09 = {
+    //     type: 'doughnut',
+    //     data: {
+    //         datasets: [{
+    //             data: [
+    //                 '48.04',
+    //                 '7.04',
+    //                 '32.50',
+    //                 '4.70',
+    //                 '7.72',
+    //             ],
+    //             backgroundColor: [
+    //                 "#A5D6A7",
+    //                 "#FF8A80",
+    //                 "#B388FF",
+    //                 '#999999',
+    //                 "#FFD180"
+    //             ],
+    //             label: 'Dataset 1'
+    //         }],
+    //         labels: [
+    //             'আ. লীগ',
+    //             'জাতীয় পার্টি',
+    //             'বিএনপি',
+    //             'জামায়াতে ইসলামী',
+    //             'অন্যান্য'
+    //         ]
+    //     },
+    //     options: {
+    //         responsive: true,
+    //         legend: {
+    //             display: false,
+    //         },
+    //         title: {
+    //             display: true,
+    //             text: ''
+    //         },
+    //         animation: {
+    //             animateScale: true,
+    //             animateRotate: true
+    //         },
+    //         tooltips: {
+    //             callbacks: {
+    //                 title: function(tooltipItem, data) {
+    //                     return data['labels'][tooltipItem[0]['index']].getDigitBanglaFromEnglish();
+    //                 },
+    //                 label: function(tooltipItem, data) {
+    //                     var tem = data['datasets'][0]['data'][tooltipItem['index']];
+    //                     return tem.getDigitBanglaFromEnglish() + "%";
+    //                 }
+    //             }
+    //         },
+    //         plugins: {
+    //             labels: {
+    //                 render: function (args) {
+    //                     // { label: 'Label', value: 123, percentage: 50, index: 0, dataset: {...} }
+    //                     return args.value.getDigitBanglaFromEnglish() + '%';
+    //                 },
+    //                 fontColor: '#000',
+    //                 position: 'outside',
+    //                 precision: 2
+    //             }
+    //         },
+    //         elements: {
+    //             center: {
+    //                 text: '৯ম',
+    //                 fontStyle: 'Kiron',
+    //                 color: '#764ac5', // Default is #000000
+    //                 sidePadding: 10, // Defualt is 20 (as a percentage),
+    //             }
+    //         }
+    //     }
+    // };
+
+
+    // var config_10 = {
+    //     type: 'doughnut',
+    //     data: {
+    //         datasets: [{
+    //             data: [
+    //                 '72.14',
+    //                 '7.0',
+    //                 '0',
+    //                 '0.0',
+    //                 '20.86',
+    //             ],
+    //             backgroundColor: [
+    //                 "#A5D6A7",
+    //                 "#FF8A80",
+    //                 "#B388FF",
+    //                 '#999999',
+    //                 "#FFD180"
+    //             ],
+    //             label: 'Dataset 1'
+    //         }],
+    //         labels: [
+    //             'আ. লীগ',
+    //             'জাতীয় পার্টি',
+    //             'বিএনপি',
+    //             'জামায়াতে ইসলামী',
+    //             'অন্যান্য'
+    //         ]
+    //     },
+    //     options: {
+    //         responsive: true,
+    //         legend: {
+    //             display: false,
+    //         },
+    //         title: {
+    //             display: true,
+    //             text: ''
+    //         },
+    //         animation: {
+    //             animateScale: true,
+    //             animateRotate: true
+    //         },
+    //         tooltips: {
+    //             callbacks: {
+    //                 title: function(tooltipItem, data) {
+    //                     return data['labels'][tooltipItem[0]['index']].getDigitBanglaFromEnglish();
+    //                 },
+    //                 label: function(tooltipItem, data) {
+    //                     var tem = data['datasets'][0]['data'][tooltipItem['index']];
+    //                     return tem.getDigitBanglaFromEnglish() + "%";
+    //                 }
+    //             }
+    //         },
+    //         plugins: {
+    //             labels: {
+    //                 render: function (args) {
+    //                     // { label: 'Label', value: 123, percentage: 50, index: 0, dataset: {...} }
+    //                     return args.value.getDigitBanglaFromEnglish() + '%';
+    //                 },
+    //                 fontColor: '#000',
+    //                 position: 'outside',
+    //                 precision: 2
+    //             }
+    //         },
+    //         elements: {
+    //             center: {
+    //                 text: '১০ম',
+    //                 fontStyle: 'Kiron',
+    //                 color: '#db499a', // Default is #000000
+    //                 sidePadding: 10, // Defualt is 20 (as a percentage),
+    //             }
+    //         }
+    //     }
+    // };
+
+
+
+</script>
+                    
+                </div>
+
+                </div>
+
+        
+    
+    
+    <!-- ##### All Javascript Script ##### -->
+    
+    <!-- Popper js -->
+    <script src="asset/js/popper.min.js.download"></script>
+    <!-- Bootstrap js -->
+    <script src="asset/js/bootstrap.min.js.download"></script>
+    <!-- LazyLoad js -->
+    <script src="asset/js/lazyload.js.download"></script>
+    <!-- All Plugins js -->
+    <script src="asset/js/plugins.js.download"></script>
+    <!-- Active js -->
+    <script src="asset/js/actived6c3.js.download"></script><a id="scrollUp" href="https://election.prothomalo.com/#top" style="display: none; position: fixed; z-index: 2147483647;"><i class="fa fa-angle-up"></i></a>
+
+    
+    
+
+    <script>
+        $( ".breaking-news-close.close" ).click(function() {
+            $('.breaking-new-iframe').hide();
+            $('.breaking-news-close.open').show();
+            $('.breaking-news-close.close').hide();
+        });
+
+        $( ".breaking-news-close.open" ).click(function() {
+            $('.breaking-new-iframe').show();
+            $('.breaking-news-close.open').hide();
+            $('.breaking-news-close.close').show();
+        });
+    </script>
+
+    <style>
+        .events-cd{
+            width: 414px;
+        }
+        .folafol{
+            text-align: center;
+            width: 100%;
+            margin-bottom: 60px;
+        }
+        .folafol h1{
+            font-size: 30px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .folafol h1 a{
+            font-size: 30px;
+        }
+        .folafol h1:before{
+            content: '';
+            width: 6%;
+            height: 3px;
+            background-color: #3764eb;
+            position: absolute;
+            bottom: 0;
+            left: 47%;
+        }
+        .folafol h1:after{
+            content: '';
+            width: 14%;
+            height: 1px;
+            background-color: #3764eb;
+            position: absolute;
+            bottom: 1px;
+            left: 43%;
+        }
+        .breaking-news-close{
+            width: 45px;
+            text-align: center;
+            cursor: pointer;
+            position: fixed;
+            bottom: 10px;
+            right: 0;
+            z-index: 9;
+            border-radius: 4px;
+            height: 40px;
+            line-height: 40px;
+            border: 5px solid #3764eb;
+            background: #fff;
+            font-size: 40px;
+            font-weight: 700;
+            opacity: 1!important;
+        }
+
+        .breaking-news-close.open{
+            font-size: 30px;
+            line-height: 30px;
+            display: none;
+        }
+
+        .breaking-news-close i{
+            color: #333;
+            font-size: 24px;
+        }
+
+        .register-now .register-now-countdown .events-cd div{
+            padding: 25px
+        }
+
+        @media screen and (max-width: 800px) {
+
+            .events-cd {
+                width: 210px;
+            }
+
+            .election-result-2018.election-result-container .party-chart{
+                    max-width: 310px;
+            }
+
+            .register-now .register-now-countdown .events-cd div {
+                padding: 16px 0;
+            }
+
+        }
+        
+
+        @media (max-width: 640px) {
+            .breaking-news-close{
+                bottom: 58px;
+                right: 8px;
+            }
+        }
+    </style>
+	
+
+	<script>
+		$('svg a').on('touchend, click', function(e) {
+			e.preventDefault();
+			var url = $(this).attr('href');
+			window.location = url;
+		});
+	</script>
+
+
+
+<!-- Mirrored from election.prothomalo.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 31 Jul 2019 11:18:35 GMT -->
+
+</body></html>
